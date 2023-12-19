@@ -8,6 +8,6 @@ const ItemDetail = () => {
     )
 }
 
-export default ItemDetail
+export default ItemDetail;
 
 const styles = StyleSheet.create({})

@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native' 
-import { colors } from '.. Global/colors'
+import { colors } from '../Global/colors'
 
 const Header = ({title = "Hola!"}) => {
     return (
@@ -22,4 +22,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Header
+export default Header;

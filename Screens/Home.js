@@ -1,13 +1,14 @@
-import Categories from '../Components/Categories'
-import Header from '../Components/Header'
+import React from 'react';
+import Header from '../Components/Header';
+import Categories from '../Components/Categories';
 
-const Home = () => {
-    return (
-        <>
-            <Header title='Categories'/>
-            <Categories/>
-        </>
-    )
+const Home = ({ setCategorySelected }) => {
+  return (
+    <>
+      <Header title='Categories' />
+      <Categories setCategorySelected={setCategorySelected} />
+    </>
+  );
 }
 
-export default Home
+export default Home;

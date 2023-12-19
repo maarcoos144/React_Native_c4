@@ -6,17 +6,28 @@ import { Entypo } from '@expo/vector-icons';
 
 const Search = ({ onSearch }) => {
     const [input, setInput] = useState("");
+    const [error, setError] = useState("");
 
     const search = () => {
-        onSearch(input)
-    }
+        //onSearch(input)
+        console.log(input)
+        const expression = /\d/; //expresión que evalúa si hay presente al menos un número
+        if (expression.test(input)) {
+            setError("Only search letters");
+        } else {
+            setError("");
+            onSearch(input);
+        }
+    };
 
     const removeInput = () => {
         setInput("");
+        setError("");
     }
 
     return (
         <View style = {styles.container}>
+            <View style={styles.inputContainer}>
             <TextInput
                 style={styles.input}
                 value={input}
@@ -30,7 +41,9 @@ const Search = ({ onSearch }) => {
                 <Entypo name="circle-with-cross" size={25} color="black"/>
             </Pressable>
         </View>
-    )
+        {error ? <Text style={styles.errorText}>{error}</Text> : null }
+        </View>
+    );
 }
 
 export default Search;
