@@ -11,7 +11,7 @@ const App = () => {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <Header title="Your App Title" />
+      <Header title="Ecommerce" />
       {
         categorySelected ?
           <ItemListCategories

@@ -1,5 +1,5 @@
-import { FlatList, StyleSheet, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
 import Header from '../Components/Header';
 import ProductItem from '../Components/ProductItem';
 import allProducts from '../Data/products.json';
@@ -11,14 +11,15 @@ const ItemListCategories = ({ category }) => {
 
   useEffect(() => {
     if (category) {
-      const products = allProducts.filter(product => product.category === category);
-      const productsFiltered = products.filter(product => product.title.includes(keyword))
-      setProducts(productsFiltered);
+      const filteredProducts = allProducts.filter(product => product.category === category && product.title.includes(keyword));
+      setProducts(filteredProducts);
     } else {
-      const productsFiltered = allProducts.filter(product => product.title.includes(keyword))
-      setProducts(productsFiltered);
+      const filteredProducts = allProducts.filter(product => product.title.includes(keyword));
+      setProducts(filteredProducts);
     }
-  }, [category, keyword])
+    console.log(products); 
+  }, [category, keyword]);
+  
 
   return (
     <View>
@@ -28,7 +29,7 @@ const ItemListCategories = ({ category }) => {
         <FlatList
           data={products}
           renderItem={({ item }) => <ProductItem item={item} />}
-          keyExtractor={item => item.id}
+          keyExtractor={(item) => item.id.toString()}
         />
       </View>
     </View>
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: '100%',
-  }
+  },
 });
 
 export default ItemListCategories;
