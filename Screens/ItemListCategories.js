@@ -8,6 +8,7 @@ import Search from '../Components/Search';
 const ItemListCategories = ({ category }) => {
   const [products, setProducts] = useState([]);
   const [keyword, setKeyword] = useState("");
+  const [numColumns, setNumColumns] = useState(2);
 
   useEffect(() => {
     if (category) {
@@ -17,21 +18,20 @@ const ItemListCategories = ({ category }) => {
       const filteredProducts = allProducts.filter(product => product.title.includes(keyword));
       setProducts(filteredProducts);
     }
-    console.log(products); 
   }, [category, keyword]);
-  
 
   return (
-    <View>
+    <View style={styles.container}>
       <Header title={category || "Products"} />
       <Search onSearch={setKeyword} />
-      <View style={styles.container}>
-        <FlatList
-          data={products}
-          renderItem={({ item }) => <ProductItem item={item} />}
-          keyExtractor={(item) => item.id.toString()}
-        />
-      </View>
+      <FlatList
+        key={numColumns} 
+        data={products}
+        renderItem={({ item }) => <ProductItem item={item} />}
+        keyExtractor={(item) => item.id.toString()}
+        contentContainerStyle={styles.flatListContainer}
+        numColumns={numColumns}
+      />
     </View>
   );
 };
@@ -41,6 +41,13 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
   },
+  flatListContainer: {
+    flexGrow: 1,
+    justifyContent: 'space-between',
+    padding: 10,
+  },
 });
 
 export default ItemListCategories;
+
+
