@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View, SafeAreaView } from 'react-native';
 import Header from '../Components/Header';
 import ProductItem from '../Components/ProductItem';
 import allProducts from '../Data/products.json';
 import Search from '../Components/Search';
 
-const ItemListCategories = ({ category }) => {
+const ItemListCategories = ({ route }) => {
+  const { category } = route.params;
   const [products, setProducts] = useState([]);
-  const [keyword, setKeyword] = useState("");
+  const [keyword, setKeyword] = useState('');
   const [numColumns, setNumColumns] = useState(2);
 
   useEffect(() => {
@@ -21,25 +22,31 @@ const ItemListCategories = ({ category }) => {
   }, [category, keyword]);
 
   return (
-    <View style={styles.container}>
-      <Header title={category || "Products"} />
-      <Search onSearch={setKeyword} />
-      <FlatList
-        key={numColumns} 
-        data={products}
-        renderItem={({ item }) => <ProductItem item={item} />}
-        keyExtractor={(item) => item.id.toString()}
-        contentContainerStyle={styles.flatListContainer}
-        numColumns={numColumns}
-      />
-    </View>
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.container}>
+        <Header title={category || 'Products'} />
+        <Search onSearch={setKeyword} />
+        <FlatList
+          key={numColumns}
+          data={products}
+          renderItem={({ item }) => <ProductItem item={item} />}
+          keyExtractor={item => item.id.toString()}
+          contentContainerStyle={styles.flatListContainer}
+          numColumns={numColumns}
+        />
+      </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     width: '100%',
+    backgroundColor: 'white',
   },
   flatListContainer: {
     flexGrow: 1,
@@ -49,5 +56,3 @@ const styles = StyleSheet.create({
 });
 
 export default ItemListCategories;
-
-

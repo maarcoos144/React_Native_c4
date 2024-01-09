@@ -1,10 +1,12 @@
 import React from 'react';
-import { Image, StyleSheet, Text, Pressable, Dimensions } from 'react-native';
+import { Image, StyleSheet, Text, Pressable/*, useWindowDimensions*/, Dimensions} from 'react-native';
 
 const ProductItem = ({ item }) => {
-console.log(item);
-const windowWidth = Dimensions.get('window').width;
-const containerWidth = (windowWidth - 30) / 2;
+    console.log(item);
+    const windowWidth = Dimensions.get('window').width;
+    const containerWidth = (windowWidth - 30) / 2;
+
+   // const {height, width} = useWindowDimensions();
 
 return (
 <Pressable style={[styles.card, { width: containerWidth }]}>
@@ -30,10 +32,13 @@ borderColor: 'black',
 },
 text: {
 fontSize: 18,
+/*width: '70%', *///
 fontWeight: 'bold',
 marginBottom: 5,
 },
 image: {
+/*minHeight: 90, //
+minWidth: 90,*/ //
 width: '100%',
 height: 200,
 },
